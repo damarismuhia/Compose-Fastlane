@@ -31,7 +31,34 @@ platform :android do
     )
 
     end
+    desc "Build release app bundle"
+    lane :buildBundle do
+      #Please note this is not necessary as far as you have configured the keystore_properties on the gradle.
+      # Initialize keystore_properties hash
+      keystore_properties = {}
+
+      # Open keystore properties file and read each line
+      File.open("../signingConfigs/keystore.properties").each do |line|
+        key, value = line.strip.split("=")
+        keystore_properties[key] = value if key && value
+      end
+
+      # Log the keystore properties to ensure they are read correctly
+      puts "Keystore properties: #{keystore_properties}"
+
+      # Run Gradle task to build the app bundle with the properties passed correctly
+      gradle(
+        task: "clean bundleRelease",
+        properties: {
+            "signingConfig.release.storePassword" => keystore_properties["storePassword"],
+            "signingConfig.release.keyAlias" => keystore_properties["keyAlias"],
+            "signingConfig.release.keyPassword" => keystore_properties["keyPassword"],
+            "signingConfig.release.storeFile" => keystore_properties["storeFile"],
+        }
+      )
+    end
 end
+
 
 
 

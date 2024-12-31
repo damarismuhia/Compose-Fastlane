@@ -46,7 +46,7 @@ NB:
 - The Pluginfile is a file in your fastlane directory where you specify additional Fastlane plugins that you want to use in your project. It's a place to list third-party Fastlane plugins (like firebase_app_distribution) that are not included by default in Fastlane.
 
 # Building lanes:
-- A lane is a workflow that Fastlane can complete. Lanes are defined in the Fastfile file.
+- A lane is a workflow that Fastlane can complete. Lanes are defined in the Fastfile file.These lanes represent different release processes, and the actions are steps taken within each lane.
 - * Steps: **
     1. Set the default platform - ios or android that our lane will be using.
     2. Next we need to tell Fastlane on which platform it needs to drive the lane.
@@ -61,8 +61,15 @@ NB:
     # <b>Android Build Types</b>
 1. Debug is the build type that is used when we run the application from the IDE directly onto a device.
 2. A release is the build type that requires you to sign the APK.In the release build type, we obfuscate the code using ProGuard,DexGuard to prevent reverse engineering.
-- 
-    # Product Flavors
+3. 
+## SigningConfigs
+- keystore is a critical part of your app's security, as it's used to sign your APKs and AABs.
+- To securely store Keystore info:
+  1. Create Properties File (.properties) to Store your keystore details in a .properties file 
+  2. Load Properties into your build.gradle.kts file.
+  3. Configure the signing Options using the loaded properties
+
+     # Product Flavors
 - 
 - product flavors are a way to create different versions of an app from the same codebase. 
 - These can be used to define different configurations for various environments (e.g., development, staging, production) or for creating multiple variants of an app (e.g., free vs. paid versions)

@@ -1,10 +1,20 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
+val keyStoreProperties = Properties()
+val keyStorePropertiesFile = rootProject.file("signingConfigs/keystore.properties") //Loads the signing.properties file from the root of the project.
+if (keyStorePropertiesFile.exists()) {
+    keyStoreProperties.load(FileInputStream(keyStorePropertiesFile)) //Loads the keystore details from the file into a Properties object.
+}
+
 
 android {
+
     namespace = "com.dmuhia.composefastlane"
     compileSdk = 35
 
@@ -17,9 +27,19 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        create("release") {
+            storePassword = keyStoreProperties["storePassword"].toString()
+            keyAlias = keyStoreProperties["keyAlias"].toString()
+            keyPassword = keyStoreProperties["keyPassword"].toString()
+            storeFile = keyStoreProperties["storeFile"]?.let { file(it) } ?: throw GradleException("Keystore file not found!")
+
+        }
+    }
 
     buildTypes {
-        release {
+        getByName("release") {
+            signingConfig = signingConfigs["release"]
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -27,7 +47,7 @@ android {
             )
         }
     }
-    flavorDimensions
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
