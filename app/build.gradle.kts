@@ -40,11 +40,38 @@ android {
     buildTypes {
         getByName("release") {
             signingConfig = signingConfigs["release"]
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        /**
+         * The `initWith` property lets you copy configurations from other build types,
+         * then configure only the settings you want to change. This one copies the debug build
+         * type, and then changes the versionNameSuffix.
+         */
+       create( "uat"){
+            initWith(getByName("debug"))
+           versionNameSuffix = ".uat"
+        }
+    }
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = ".dev"
+            manifestPlaceholders["appLabel"] = "Compose(Dev)"
+            resValue("string", "feature", "Basic Features") //resValue in build.gradle: Defines resources dynamically at build time.
+            resValue("boolean", "isPremium", "true")
+        }
+        create("prod") {
+            dimension = "environment"
+            manifestPlaceholders["appLabel"] = "Compose"
+            resValue("string", "feature", "Premium Features")
+            resValue("boolean", "isPremium", "true")
+
         }
     }
 
@@ -57,6 +84,19 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+    sourceSets {
+        getByName("dev") {
+            java {
+                srcDirs("src/dev/java")
+            }
+        }
+        getByName("prod") {
+            java {
+                srcDirs("src/prod/java")
+            }
+        }
     }
 }
 

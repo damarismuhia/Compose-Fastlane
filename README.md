@@ -58,18 +58,27 @@ NB:
 # Android Build Types and Product Flavors
 - They help us make changes in themes, app icons or adding different stages of the product such as dev, beta, production etc
 
-    # <b>Android Build Types</b>
+## <b>Android Build Types</b>
+- Build Types are sort of settings/properties that gradle plugin uses when building and packaging the app
 1. Debug is the build type that is used when we run the application from the IDE directly onto a device.
 2. A release is the build type that requires you to sign the APK.In the release build type, we obfuscate the code using ProGuard,DexGuard to prevent reverse engineering.
-3. 
-## SigningConfigs
-- keystore is a critical part of your app's security, as it's used to sign your APKs and AABs.
-- To securely store Keystore info:
-  1. Create Properties File (.properties) to Store your keystore details in a .properties file 
-  2. Load Properties into your build.gradle.kts file.
-  3. Configure the signing Options using the loaded properties
 
-     # Product Flavors
-- 
-- product flavors are a way to create different versions of an app from the same codebase. 
-- These can be used to define different configurations for various environments (e.g., development, staging, production) or for creating multiple variants of an app (e.g., free vs. paid versions)
+    ## SigningConfigs
+   -  Gradle uses signingConfigs to define how the APKs or bundles are signed,
+   - keystore is a critical part of your app's security, as it's used to sign your APKs and AABs.
+   - To securely store Keystore info:
+     1. Create Properties File (.properties) to Store your keystore details in a .properties file 
+     2. Load Properties into your build.gradle.kts file.
+     3. Configure the signing Options using the loaded properties
+
+## Product Flavors
+- product flavors are a way to create different versions of an app from the same codebase. The app version can be paid or free.
+- The app can have different themes or texts, show or hide app functionalities or define different configurations for various environments (e.g., development, staging, production),
+    creating multiple variants of an app (e.g., free vs. paid versions),
+- Flavor Dimensions is a way to group flavors by a name.
+- You can set the app name for each flavor on gradle using manifestPlaceholders attribute. eg. manifestPlaceholders["appLabel"] = "Compose(Dev)" then set android:label="${appLabel}" on the manifest file.
+
+* Build Variants - is a combination of each product flavor with app build types.Each product flavor will be associated with app build types.
+* Ref: https://medium.com/@badr.elattaoui/practical-guide-to-implement-product-flavors-in-android-step-by-step-7ca8b41ea8a0
+* https://developer.android.com/build/build-variants#product-flavors
+* https://proandroiddev.com/advanced-android-flavors-part-1-building-white-label-apps-on-android-ade16af23bcf
