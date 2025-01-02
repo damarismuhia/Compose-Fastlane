@@ -39,14 +39,6 @@ This lane build the release APK and Distribute to Internal testers via Firebase
 
 Build release app bundle
 
-### android push_code
-
-```sh
-[bundle exec] fastlane android push_code
-```
-
-Push code to Github
-
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
