@@ -16,6 +16,17 @@
 default_platform(:android)
 
 platform :android do
+    desc "Increment version"
+    lane :increment_version do
+        increment_version_code(
+         gradle_file_path: "./app/build.gradle.kts",
+        )
+
+        increment_version_name(
+          gradle_file_path: "./app/build.gradle.kts",
+        )
+    end
+
     desc "This lane build the release APK and Distribute to Internal testers via Firebase"
     lane :uploadReleaseApk do
         gradle(
@@ -56,6 +67,13 @@ platform :android do
             "signingConfig.release.storeFile" => keystore_properties["storeFile"],
         }
       )
+    end
+
+    desc "Push code to Github"
+    lane :push_code do
+        sh("git add .")
+        sh('git commit -m "increment version code and name"')
+        sh("git push origin main")
     end
 end
 
