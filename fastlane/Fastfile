@@ -69,18 +69,25 @@ platform :android do
       )
     end
 
-    desc "Push code to Github"
-    lane :push_code do
-        sh("git add .")
-        sh('git commit -m "increment version code and name"')
-        sh("git push origin main")
+    desc "After successful execution of all tasks, Push code to Github"
+    after_all do
+        git_add(path: "*")
+        git_commit(path: "*", message: "increment version code and name")
+        git_push(local_branch: "main",
+                remote: "origin",
+                remote_branch: "main", tags: true)
     end
 end
 
 
 
 
-
+# desc "After successful execution of all tasks, Push code to Github"
+#     after_all do
+#         sh("git add .")
+#         sh('git commit -m "increment version code and name"')
+#         sh("git push origin main")
+#     end
 
 
 

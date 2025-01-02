@@ -2,7 +2,7 @@
 > Fastlane is an excellent open-source tool based on Ruby, using which you can automate your Android or iOS app build & deployment.
 > You can build, run tests, code signing, take screenshots, generate build files, upload to the app store and Play Store, and do many other tasks.
 
-# Fastlane Setup 000000
+# Fastlane Setup
 - Fastlane depends on Ruby because it was built using the Ruby programming language and distributed via the Ruby gem ecosystem.
 - You don’t need to manually install Ruby if you use package managers like Homebrew (macOS) or Chocolatey (Windows), as these handle Ruby installation for you.
   ** Installing fastlane *
@@ -28,8 +28,9 @@ To install fastlane using the bundler:
     - Appfile - where you store project-specific details like app identifiers, package names
     - Fastfile - where we define different lanes and actions for automating tasks like building, testing, or distributing your app
 9. bundle exec fastlane add_plugin firebase_app_distribution - creates a Plugin file. Inside this file is where we will add the required plugins for the bundler to install.(in our case: firebase_app_distribution that will help us upload builds)
+> ref: https://firebase.google.com/docs/app-distribution/android/distribute-fastlane
     - In Addition to the created plugin file, the Gemfile gets modified with PluginFile path
-    - Other plugins include: https://docs.fastlane.tools/plugins/available-plugins/
+    - Other plugins include: https://docs.fastlane.tools/plugins/available-plugins/ //bundle exec fastlane add_plugin increment_version_code
         1. bundle exec fastlane add_plugin versioning - Automatically increment version numbers in your build.gradle (Android) or Info.plist (iOS) files.
         2. bundle exec fastlane add_plugin testflight
         3. bundle exec fastlane add_plugin app_store_connect - Automate tasks such as managing app metadata, uploading screenshots, updating app versions, and more.
@@ -51,9 +52,14 @@ NB:
     1. Set the default platform - ios or android that our lane will be using.
     2. Next we need to tell Fastlane on which platform it needs to drive the lane.
     3. Give a name(using the lane keyword) and description(Using the desc keyword) to our lane.
+nb: uninstalling the gem you can just execute: gem uninstall <gem to uninstall>
+# Automating screenshots with screengrab
+https://www.runway.team/blog/how-to-build-the-perfect-fastlane-pipeline-for-android#build-types
 
-
-
+# Push Updated Code
+- After successfully executing all the tasks, you may want to push updated code to remote,send an email notification or send messages to slack and others. 
+This can be done in the after_all block.
+- You shouldn’t push updated code unless it’s successfully uploaded to Play Store or Firebase. That’s why you should do this task in the after_all block.
 
 # Android Build Types and Product Flavors
 - They help us make changes in themes, app icons or adding different stages of the product such as dev, beta, production etc
