@@ -23,14 +23,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Increment version
 
-### android uploadReleaseApk
-
-```sh
-[bundle exec] fastlane android uploadReleaseApk
-```
-
-This lane build the release APK and Distribute to Internal testers via Firebase
-
 ### android buildBundle
 
 ```sh
@@ -38,6 +30,14 @@ This lane build the release APK and Distribute to Internal testers via Firebase
 ```
 
 Build release app bundle
+
+### android uploadReleaseApk
+
+```sh
+[bundle exec] fastlane android uploadReleaseApk
+```
+
+This lane build the release APK and Distribute to Internal testers via Firebase
 
 ----
 

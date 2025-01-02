@@ -27,21 +27,6 @@ platform :android do
         )
     end
 
-    desc "This lane build the release APK and Distribute to Internal testers via Firebase"
-    lane :uploadReleaseApk do
-        gradle(
-        task: "clean assemble",
-        build_type: "release"
-    )
-        firebase_app_distribution(
-        service_credentials_file: "firebase-app-distribution-key.json",
-        app: "1:173373497702:android:9383db37827f6e6974e8a7",
-        release_notes: "Integrating Fastlane using bundler",
-        groups: "InternalTesters",
-        debug: true
-    )
-
-    end
     desc "Build release app bundle"
     lane :buildBundle do
       #Please note this is not necessary as far as you have configured the keystore_properties on the gradle.
@@ -68,6 +53,23 @@ platform :android do
         }
       )
     end
+
+    desc "This lane build the release APK and Distribute to Internal testers via Firebase"
+    lane :uploadReleaseApk do
+        increment_version
+        gradle(
+        task: "clean assemble",
+        build_type: "release"
+    )
+        firebase_app_distribution(
+        service_credentials_file: "firebase-app-distribution-key.json",
+        app: "1:173373497702:android:9383db37827f6e6974e8a7",
+        release_notes: "Integrating Fastlane using bundler",
+        groups: "InternalTesters",
+        debug: true
+    )
+    end
+
 
     desc "After successful execution of all tasks, Push code to Github"
     after_all do

@@ -88,3 +88,6 @@ This can be done in the after_all block.
 * Ref: https://medium.com/@badr.elattaoui/practical-guide-to-implement-product-flavors-in-android-step-by-step-7ca8b41ea8a0
 * https://developer.android.com/build/build-variants#product-flavors
 * https://proandroiddev.com/advanced-android-flavors-part-1-building-white-label-apps-on-android-ade16af23bcf
+
+# Github Action
+Ref: https://proandroiddev.com/getting-started-ci-cd-for-android-project-part-3-github-actions-157857224cb1

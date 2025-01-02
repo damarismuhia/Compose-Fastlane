@@ -22,8 +22,8 @@ android {
         applicationId = "com.dmuhia.composefastlane"
         minSdk = 24
         targetSdk = 35
-        versionCode = 4
-        versionName = "0.0.4"
+        versionCode = 2
+        versionName = "0.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,14 +64,11 @@ android {
             versionNameSuffix = ".dev"
             manifestPlaceholders["appLabel"] = "Compose(Dev)"
             resValue("string", "feature", "Basic Features") //resValue in build.gradle: Defines resources dynamically at build time.
-            resValue("boolean", "isPremium", "true")
         }
         create("prod") {
             dimension = "environment"
             manifestPlaceholders["appLabel"] = "Compose"
             resValue("string", "feature", "Premium Features")
-            resValue("boolean", "isPremium", "true")
-
         }
     }
 
