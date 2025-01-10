@@ -90,4 +90,5 @@ This can be done in the after_all block.
 * https://proandroiddev.com/advanced-android-flavors-part-1-building-white-label-apps-on-android-ade16af23bcf
 
 # Github Action
-Ref: https://proandroiddev.com/getting-started-ci-cd-for-android-project-part-3-github-actions-157857224cb1
+- Ref: https://proandroiddev.com/getting-started-ci-cd-for-android-project-part-3-github-actions-157857224cb1
+- https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-part-3-9357414688a2

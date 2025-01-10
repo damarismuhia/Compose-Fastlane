@@ -12,6 +12,10 @@
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
+before_all do
+    UI.message("Loaded APP_ID: #{ENV['APP_ID']}")
+    end
+
 
 default_platform(:android)
 
@@ -59,6 +63,7 @@ platform :android do
         increment_version
         gradle(
         task: "clean assemble",
+        flavor: "prod",
         build_type: "release"
     )
         firebase_app_distribution(
@@ -71,25 +76,16 @@ platform :android do
     end
 
 
-    desc "After successful execution of all tasks, Push code to Github"
+    desc "After successful execution of task, Push code to Github"
     after_all do
         git_add(path: "*")
-        git_commit(path: "*", message: "increment version code and name")
+        git_commit(path: "*", message: "Drawable for each flavor, with basic one having a different color ")
         push_to_git_remote(local_branch: "main",
                 remote: "origin",
                 remote_branch: "main", tags: true)
     end
 end
 
-
-
-
-# desc "After successful execution of all tasks, Push code to Github"
-#     after_all do
-#         sh("git add .")
-#         sh('git commit -m "increment version code and name"')
-#         sh("git push origin main")
-#     end
 
 
 
